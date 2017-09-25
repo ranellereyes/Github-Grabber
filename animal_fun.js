@@ -1,5 +1,8 @@
 const fs = require('fs');
 
+// TO RUN:
+// node animal_fun.js match_str
+
 // READ FILE
 
 // // For seeing what the error looks like
@@ -48,7 +51,8 @@ fs.readFile('./animals.txt', 'utf-8', (err, data) => {
 
   let filtered_animals = data
     .split('\n')
-    .filter(animal => animal.length > 0 && animal.slice(0, arg_length).toLowerCase() === process.argv[2].toLowerCase())
+    .filter(animal => animal.length > 0 &&
+        animal.slice(0, arg_length).toLowerCase() === process.argv[2].toLowerCase())
     .join('\n');
 
   fs.writeFile('./filtered_animals.txt', filtered_animals, err => {
