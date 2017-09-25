@@ -1,4 +1,5 @@
 const fs = require('fs');
+const http = require('http');
 
 // TO RUN:
 // node animal_fun.js match_str
@@ -61,3 +62,12 @@ fs.readFile('./animals.txt', 'utf-8', (err, data) => {
     console.log(`Animals beginning with the letter ${process.argv[2].toUpperCase()} are now located in './filtered_animals.txt'!`)
   })
 })
+
+// SERVER
+
+const server = http.createServer((req, res) => {
+  res.write('Hello World!');
+  res.end();
+})
+
+server.listen(8000, () => { console.log(`I'm listening on port 8000!`);})

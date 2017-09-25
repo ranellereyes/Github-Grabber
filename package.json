@@ -1,0 +1,24 @@
+{
+  "name": "Github-Grabber",
+  "version": "1.0.0",
+  "description": "",
+  "main": "animal_fun.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon animal_fun.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ranellereyes/Github-Grabber.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ranellereyes/Github-Grabber/issues"
+  },
+  "homepage": "https://github.com/ranellereyes/Github-Grabber#readme",
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}
