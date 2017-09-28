@@ -38,39 +38,54 @@ const querystring = require('querystring');
 // Pass a single letter to script, filter out all animals that start with
 // that same letter
 
-fs.readFile('./animals.txt', 'utf-8', (err, data) => {
-  if (err) {
-    console.log('animals.txt does not exist');
-    return;
-  }
-
-  if (!process.argv[2]) {
-    console.log('Please pass a string as an argument!')
-    return;
-  }
-
-  const arg_length = process.argv[2].length;
-
-  let filtered_animals = data
-    .split('\n')
-    .filter(animal => animal.length > 0 &&
-        animal.slice(0, arg_length).toLowerCase() === process.argv[2].toLowerCase())
-    .join('\n');
-
-  fs.writeFile('./filtered_animals.txt', filtered_animals, err => {
-    if (err) { console.log(err); }
-
-    console.log(`Animals beginning with the letter ${process.argv[2].toUpperCase()} are now located in './filtered_animals.txt'!`)
-  })
-})
+// fs.readFile('./animals.txt', 'utf-8', (err, data) => {
+//   if (err) {
+//     console.log('animals.txt does not exist');
+//     return;
+//   }
+//
+//   if (!process.argv[2]) {
+//     console.log('Please pass a string as an argument!')
+//     return;
+//   }
+//
+//   const arg_length = process.argv[2].length;
+//
+//   let filtered_animals = data
+//     .split('\n')
+//     .filter(animal => animal.length > 0 &&
+//         animal.slice(0, arg_length).toLowerCase() === process.argv[2].toLowerCase())
+//     .join('\n');
+//
+//   fs.writeFile('./filtered_animals.txt', filtered_animals, err => {
+//     if (err) { console.log(err); }
+//
+//     console.log(`Animals beginning with the letter ${process.argv[2].toUpperCase()} are now located in './filtered_animals.txt'!`)
+//   })
+// })
 
 // SERVER
 
 const server = http.createServer((req, res) => {
-  res.write('Hello World!');
-  console.log(querystring.parse());
-  // res.write(`Your query is ${querystring.parse()}`)
-  res.end();
+  res.write('Hello World! \n');
+
+  const query = req.url.split('?letter=')[1];
+  console.log(query);
+  if (query) {
+    res.write(`Here is a list of animals beginning with the letter(s) ${query.toUpperCase()}\n\n`)
+    fs.readFile('./animals.txt', 'utf-8', (err, data) => {
+      if (err) { return; }
+
+      const filteredAnimals = data.split('\n')
+        .filter(animal => animal.length > 0 &&
+          animal.slice(0, query.length).toLowerCase() === query.toLowerCase())
+        .join('\n')
+
+      res.end(filteredAnimals)
+    })
+  }
+
+  // res.end();
 })
 
 server.listen(8000, () => { console.log(`I'm listening on port 8000!`);})
