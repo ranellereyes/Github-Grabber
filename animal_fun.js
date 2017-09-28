@@ -57,7 +57,7 @@ const querystring = require('querystring');
 //         animal.slice(0, arg_length).toLowerCase() === process.argv[2].toLowerCase())
 //     .join('\n');
 //
-//   fs.writeFile('./filtered_animals.txt', filtered_animals, err => {
+//   fs.writeFile('./filterequire red_animals.txt', filtered_animals, err => {
 //     if (err) { console.log(err); }
 //
 //     console.log(`Animals beginning with the letter ${process.argv[2].toUpperCase()} are now located in './filtered_animals.txt'!`)
@@ -70,7 +70,7 @@ const server = http.createServer((req, res) => {
   res.write('Hello World! \n');
 
   const query = req.url.split('?letter=')[1];
-  console.log(query);
+
   if (query) {
     res.write(`Here is a list of animals beginning with the letter(s) ${query.toUpperCase()}\n\n`)
     fs.readFile('./animals.txt', 'utf-8', (err, data) => {
@@ -83,9 +83,9 @@ const server = http.createServer((req, res) => {
 
       res.end(filteredAnimals)
     })
+  } else {
+    res.end('Please input a query in the format of \'?letter={your string}\'');
   }
-
-  // res.end();
 })
 
 server.listen(8000, () => { console.log(`I'm listening on port 8000!`);})
