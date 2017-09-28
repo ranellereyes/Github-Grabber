@@ -1,5 +1,6 @@
 const fs = require('fs');
 const http = require('http');
+const querystring = require('querystring');
 
 // TO RUN:
 // node animal_fun.js match_str
@@ -67,6 +68,8 @@ fs.readFile('./animals.txt', 'utf-8', (err, data) => {
 
 const server = http.createServer((req, res) => {
   res.write('Hello World!');
+  console.log(querystring.parse());
+  // res.write(`Your query is ${querystring.parse()}`)
   res.end();
 })
 
